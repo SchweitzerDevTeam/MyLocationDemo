@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <CoreLocation/CLCircularRegion.h>
 
-@interface MyLocationViewController : UIViewController
+
+@interface MyLocationViewController : UIViewController <CLLocationManagerDelegate> 
 
 @end
