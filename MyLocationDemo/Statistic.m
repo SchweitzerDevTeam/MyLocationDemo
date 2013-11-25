@@ -22,7 +22,7 @@
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request setRequestMethod:@"GET"];
     [request setDelegate:self];
-    [request startAsynchronous];
+    [request startSynchronous];
     
     if (request.responseStatusCode == 200) {
         NSString *responseString = [request responseString];
@@ -39,7 +39,7 @@
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request setRequestMethod:@"GET"];
     [request setDelegate:self];
-    [request startAsynchronous];
+    [request startSynchronous];
     
     if (request.responseStatusCode == 200) {
         NSString *responseString = [request responseString];
@@ -51,7 +51,7 @@
     return -1;
 }
 
-- (bool)setAndSubmitVerticalSkied:(int)verticalSkied {
+- (int)setAndSubmitVerticalSkied:(int)verticalSkied {
     
     verticalFeetSkied = verticalSkied;
     
@@ -60,13 +60,25 @@
     [request setPostValue:[NSString stringWithFormat:@"%d", verticalFeetSkied] forKey:@"vertftski"];
     [request setPostValue:username forKey:@"username"];
     [request setDelegate:self];
-    [request startAsynchronous];
+    [request startSynchronous];
     
-    if (request.responseStatusCode == 200) {
-        return true;
-    }
-                  
-    return false;
+    NSString *responseStr = [request responseString];
+    
+    return request.responseStatusCode;
+}
+
+- (int)setAndUpdateVerticalSkied:(int)verticalSkied {
+    
+    verticalFeetSkied = verticalSkied;
+    
+    NSURL *url = [NSURL URLWithString:@"http://ada.gonzaga.edu/~eshioyama/updateVert.php"];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setPostValue:[NSString stringWithFormat:@"%d", verticalFeetSkied] forKey:@"vertftski"];
+    [request setPostValue:username forKey:@"username"];
+    [request setDelegate:self];
+    [request startSynchronous];
+    
+    return request.responseStatusCode;
 }
 
 -(id)initWithValues:(int)vertSkied days:(int)numDaysSkied un:(NSString *)aUsername {

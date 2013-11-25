@@ -250,8 +250,10 @@
 
 - (IBAction)Submit:(id)sender {
     
-    _skier.verticalSkied = 5000;
-    [stat setAndSubmitVerticalSkied: _skier.verticalSkied];
+    _skier.verticalSkied += 5000;
+    if ([stat setAndSubmitVerticalSkied: _skier.verticalSkied] == 403) {
+        [stat setAndUpdateVerticalSkied: _skier.verticalSkied];
+    }
 }
 
 - (IBAction)getvert:(id)sender {

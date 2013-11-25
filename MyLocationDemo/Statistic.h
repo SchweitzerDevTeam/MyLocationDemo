@@ -20,7 +20,9 @@
 
 - (int)getVerticalFeetSkied;
 
-- (bool)setAndSubmitVerticalSkied:(int)daysSkied;
+- (int)setAndSubmitVerticalSkied:(int)daysSkied;
+
+- (int)setAndUpdateVerticalSkied:(int)daysSkied;
 
 -(id)initWithValues:(int)vertSkied days:(int)numDaysSkied un:(NSString *)aUsername;
 
