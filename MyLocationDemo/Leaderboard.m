@@ -24,7 +24,7 @@
 }
 
 - (NSArray*)getLeaders {
-    /*NSURL *url = [NSURL URLWithString:@"http://ada.gonzaga.edu/~eshioyama/getLeaders.php"];
+    NSURL *url = [NSURL URLWithString:@"http://ada.gonzaga.edu/~eshioyama/getLeaders.php"];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request setRequestMethod:@"GET"];
     [request setDelegate:self];
@@ -33,21 +33,17 @@
     if (request.responseStatusCode == 200) {
         NSString *responseString = [request responseString];
         SBJsonParser *parser = [[SBJsonParser alloc] init];
-        NSArray *responseArray = [parser objectWithString:responseString error:NULL];
+        NSDictionary *leadersDict = [parser objectWithString:responseString error:NULL];
+        NSArray *responseArray = [leadersDict objectForKey:@"leaders"];
         for (int i = 0; i < [responseArray count]; i++) {
             NSDictionary *leader = responseArray[i];
-            NSNumber *vertical = [leader objectForKey:@"vertftski"];
+            NSNumber *vertical = [leader objectForKey:@"verticalSkied"];
             NSString *username = [leader objectForKey:@"username"];
             [leaders addObject: [[Statistic alloc] initWithValues:[vertical intValue] days:0 un:username]];
         }
         return leaders;
     }
-    return NULL;*/
-    Statistic *stat1 = [[Statistic alloc] initWithValues: 1700 days:0 un: @"test1"];
-    Statistic *stat2 = [[Statistic alloc] initWithValues: 1900 days:0 un: @"test2"];
-    [leaders addObject: stat1];
-    [leaders addObject: stat2];
-    return leaders;
+    return NULL;
 }
 
 @end

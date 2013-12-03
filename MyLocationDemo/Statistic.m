@@ -73,9 +73,7 @@
     [request setPostValue:username forKey:@"username"];
     [request setDelegate:self];
     [request startSynchronous];
-    
-    NSString *responseStr = [request responseString];
-    
+        
     return request.responseStatusCode;
 }
 

@@ -42,15 +42,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *simpleTableIdentifier = @"SimpleTableItem";
+    static NSString *simpleTableIdentifier = @"leaderCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:simpleTableIdentifier];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat: @"%d", [[leaderboardData objectAtIndex:indexPath.row] getVerticalFeetSkied]];
+    cell.textLabel.text = [[leaderboardData objectAtIndex:indexPath.row] getUsername];
+    cell.detailTextLabel.text = [NSString stringWithFormat: @"%d", [[leaderboardData objectAtIndex:indexPath.row] getVerticalFeetSkied]];
     return cell;
 }
 

@@ -166,28 +166,34 @@
             return false;
         }
         
-        function grabTop20()
+        function getLeaders()
         {
-            
-            $stmt= $this->db->prepare('SELECT i.username, v.verticalSkied FROM UserVertical v JOIN junkID i using (id) ORDER BY v.verticalSkied LIMIT 20');
+            $stmt= $this->db->prepare('SELECT i.username, SUM(v.verticalSkied) FROM test v JOIN junkID i USING (id) GROUP BY i.username ORDER BY SUM(v.verticalSkied) DESC LIMIT 20');
             $stmt->execute();
-            $stmt->bind_result($result);
+            $stmt->bind_result($username, $verticalSkied);
+            
+            $singleResult = array();
+            $result = array();
+            $i = 0;
             while ($stmt->fetch()) {
-                break;
+                
+                if (!$verticalSkied || !$username) {
+                    $this->sendResponse(400, 'Table Empty');
+                    return false;
+                }
+                
+                $singleResult["username"] = $username;
+                $singleResult["verticalSkied"] = $verticalSkied;
+                $result[$i] = $singleResult;
+                $i = $i + 1;
             }
             $stmt->close();
             
-            if ($vertftskied = NULL) {
-                $this->sendResponse(400, 'Table Empty');
-                return false;
-            }
             $resultarray = array(
-                                 "Top_20" => $result,
-                                 );
-            $this->sendResponse(200, $resultarray);
+                                "leaders" => $result
+                                );
+            $this->sendResponse(200, $this->array_to_json($resultarray));
         }
-        
-    }
         
         function array_to_json( $array ){
             
@@ -212,7 +218,7 @@
                     
                     // Format the value:
                     if( is_array( $value )){
-                        $value = array_to_json( $value );
+                        $value = $this->array_to_json( $value );
                     } else if( !is_numeric( $value ) || is_string( $value ) ){
                         $value = '"'.addslashes($value).'"';
                     }
@@ -231,7 +237,7 @@
                     
                     // Format the value:
                     if( is_array( $value )){
-                        $value = array_to_json( $value );
+                        $value = $this->array_to_json( $value );
                     } else if( !is_numeric( $value ) || is_string( $value ) ){
                         $value = '"'.addslashes($value).'"';
                     }
@@ -247,5 +253,4 @@
             return $result;
         }
     }
-    
     ?>
