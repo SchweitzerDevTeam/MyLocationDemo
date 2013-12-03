@@ -17,7 +17,19 @@
 @synthesize verticalFeetSkied;
 @synthesize daysSkied;
 
+- (NSString*)getUsername {
+    return username;
+}
+
+- (int)getVerticalFeetSkied {
+    return verticalFeetSkied;
+}
+
 - (int)getDaysSkied {
+    return daysSkied;
+}
+
+- (int)getDaysSkiedForUsername {
     NSURL *url = [NSURL URLWithString:[@"http://ada.gonzaga.edu/~eshioyama/days.php?username=" stringByAppendingString:username]];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request setRequestMethod:@"GET"];
@@ -34,7 +46,7 @@
     return -1;
 }
 
-- (int)getVerticalFeetSkied {
+- (int)getVerticalFeetSkiedForUsername {
     NSURL *url = [NSURL URLWithString:[@"http://ada.gonzaga.edu/~eshioyama/get.php?username=" stringByAppendingString:username]];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request setRequestMethod:@"GET"];

@@ -16,9 +16,15 @@
 
 @property (readwrite) NSString *username;
 
+- (NSString*)getUsername;
+
 - (int)getDaysSkied;
 
 - (int)getVerticalFeetSkied;
+
+- (int)getDaysSkiedForUsername;
+
+- (int)getVerticalFeetSkiedForUsername;
 
 - (int)setAndSubmitVerticalSkied:(int)daysSkied;
 

@@ -136,7 +136,7 @@
     
     //_verSkiedLabel.text = [NSString stringWithFormat: @"%d", _skier.verticalSkied];
     
-    _verSkiedLabel.text = [NSString stringWithFormat: @"%d", [stat getVerticalFeetSkied]];
+    _verSkiedLabel.text = [NSString stringWithFormat: @"%d", [stat getVerticalFeetSkiedForUsername]];
     
     
     [_locationManager startUpdatingLocation];
@@ -257,6 +257,6 @@
 }
 
 - (IBAction)getvert:(id)sender {
-    _verSkiedLabel.text = [NSString stringWithFormat: @"%d", [stat getVerticalFeetSkied]];
+    _verSkiedLabel.text = [NSString stringWithFormat: @"%d", [stat getVerticalFeetSkiedForUsername]];
 }
 @end

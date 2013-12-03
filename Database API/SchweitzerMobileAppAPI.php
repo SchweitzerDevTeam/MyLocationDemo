@@ -166,6 +166,29 @@
             return false;
         }
         
+        function grabTop20()
+        {
+            
+            $stmt= $this->db->prepare('SELECT i.username, v.verticalSkied FROM UserVertical v JOIN junkID i using (id) ORDER BY v.verticalSkied LIMIT 20');
+            $stmt->execute();
+            $stmt->bind_result($result);
+            while ($stmt->fetch()) {
+                break;
+            }
+            $stmt->close();
+            
+            if ($vertftskied = NULL) {
+                $this->sendResponse(400, 'Table Empty');
+                return false;
+            }
+            $resultarray = array(
+                                 "Top_20" => $result,
+                                 );
+            $this->sendResponse(200, $resultarray);
+        }
+        
+    }
+        
         function array_to_json( $array ){
             
             if( !is_array( $array ) ){
